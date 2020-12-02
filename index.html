@@ -1,0 +1,92 @@
+<!-- AIzaSyALlrqJke-8Xnn-UxpT9wRPszELnc7S8bk -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Location Picker onload</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	 crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
+	 crossorigin="anonymous">
+
+	</script>
+
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALlrqJke-8Xnn-UxpT9wRPszELnc7S8bk">
+	</script>
+	<script src="https://unpkg.com/location-picker/dist/location-picker.min.js">
+	</script>
+
+	<script>
+		$(document).ready(function () {
+            $("#myModal").modal('show');
+        });
+	</script>
+</head>
+
+<body>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+          pick a position 
+
+				</div>
+				<div class="modal-body">
+					
+							<!-- <div id='map'  style="width: 100%;height: 100%;"></div> -->
+							<div id="map" style="height:50vh;"></div>
+							<br>
+<button id="confirmPosition">Confirm Position</button>
+<br>
+<p>On idle position: <span id="onIdlePositionView"></span></p>
+<p>On click position: <span id="onClickPositionView"></span></p>
+<script>
+  // Get element references
+  var confirmBtn = document.getElementById('confirmPosition');
+  var onClickPositionView = document.getElementById('onClickPositionView');
+  var onIdlePositionView = document.getElementById('onIdlePositionView');
+
+  // Initialize locationPicker plugin
+  var lp = new locationPicker('map', {
+    setCurrentPosition: true, // You can omit this, defaults to true
+  }, {
+    zoom: 15 // You can set any google map options here, zoom defaults to 15
+  });
+
+  // Listen to button onclick event
+  confirmBtn.onclick = function () {
+    // Get current location and show it in HTML
+    var location = lp.getMarkerPosition();
+    onClickPositionView.innerHTML = 'The chosen location is ' + location.lat + ',' + location.lng;
+  };
+
+  // Listen to map idle event, listening to idle event more accurate than listening to ondrag event
+  google.maps.event.addListener(lp.map, 'idle', function (event) {
+    // Get current location and show it in HTML
+    var location = lp.getMarkerPosition();
+    onIdlePositionView.innerHTML = 'The chosen location is marker' + location.lat + ',' + location.lng;
+  });
+</script>
+                       
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+  
+
+</body>
+
+</html>
